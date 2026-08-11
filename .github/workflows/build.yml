@@ -37,7 +37,11 @@ jobs:
 
     - name: Compile and Package APK
       run: |
+        # Auto-accept android licensing to clear the compiler engine checkpoint
+        yes | sdkmanager --licenses || true
         flet build apk
+      env:
+        ANDROID_HOME: /usr/local/lib/android/sdk
 
     - name: Upload Finished APK Artifact
       uses: actions/upload-artifact@v4
